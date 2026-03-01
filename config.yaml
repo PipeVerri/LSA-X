@@ -1,0 +1,26 @@
+download:
+  sources:
+    - name: AsociacionCivil
+      url: "https://www.youtube.com/c/CanalesAsociaci%C3%B3nCivil/videos"
+      auto_subs: false
+
+    - name: Videolibros(public)
+      url: "https://www.youtube.com/@VideolibrosLSA/videos"
+      auto_subs: false
+
+    - name: Videolibros(private)
+      path: "scraped/videolibros_private.txt"
+      auto_subs: false
+
+    - name: CNSordos
+      url: "https://www.youtube.com/@CNSORDOSARGENTINA/videos"
+      auto_subs: false
+
+    - name: Locufre
+      url: "https://www.youtube.com/channel/UCPJr7e9V_07DAID60F0pXVw"
+      auto_subs: true
+
+  options:
+    format: "(bestvideo[vcodec^=avc][height<=1080]/bestvideo[vcodec^=avc])  +bestaudio[ext=m4a]/best"
+    sub_langs:
+      - "es.*"
