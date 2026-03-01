@@ -1,0 +1,18 @@
+sources:
+  - name: Videolibros(private)
+    path: "scraped/videolibros_private.txt"
+    subs: true
+    auto_subs: false
+    generate_subs: true
+
+options:
+  download:
+    format: "(bestvideo[vcodec^=avc][height<=1080]/bestvideo[vcodec^=avc])  +bestaudio[ext=m4a]/best"
+    sub_langs:
+      - "es.*"
+  video_audio_separation:
+    delete_original: false
+  whisper:
+    model: "large-v3-turbo"
+    device: "cuda"
+    language: "es"
