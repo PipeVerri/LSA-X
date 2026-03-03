@@ -16,3 +16,5 @@ options:
     model: "large-v3-turbo"
     device: "cuda"
     language: "es"
+  bounding_boxes:
+    model_path: "models/yolo11m.pt"

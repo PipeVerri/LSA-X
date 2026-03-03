@@ -40,3 +40,9 @@ options:
     model: "large-v3-turbo"
     device: "cuda"
     language: "es"
+  bounding_boxes:
+    model_path: "models/yolo11m.pt"
+  landmarks:
+    model_path_pose: "models/mediapipe/pose_landmarker.task"
+    model_path_hand: "models/mediapipe/hand_landmarker.task"
+    model_path_face: "models/mediapipe/face_landmarker.task"
