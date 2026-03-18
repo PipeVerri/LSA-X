@@ -34,6 +34,7 @@ options:
     format: "(bestvideo[vcodec^=avc][height<=1080]/bestvideo[vcodec^=avc])  +bestaudio[ext=m4a]/best"
     sub_langs:
       - "es.*"
+    cookies_from_browser: "firefox"
   video_audio_separation:
     delete_original: false
   whisper:
@@ -42,7 +43,14 @@ options:
     language: "es"
   bounding_boxes:
     model_path: "models/yolo11m.pt"
+    fps: 6
   landmarks:
-    model_path_pose: "models/mediapipe/pose_landmarker.task"
-    model_path_hand: "models/mediapipe/hand_landmarker.task"
-    model_path_face: "models/mediapipe/face_landmarker.task"
+    num_workers: 1
+    fps: 6
+    max_clip_frame_separation: 1
+    min_clip_duration_frames: 36  # fps * 6 seconds
+    moving_threshold: 0.25
+    write_buffer_size: 160
+    mode: "balanced"        # rtmlib mode: balanced, performance, lightweight
+    backend: "onnxruntime"  # onnxruntime, opencv, openvino, tensorrt
+    device: "cuda"

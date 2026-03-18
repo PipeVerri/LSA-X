@@ -4,15 +4,21 @@
 
 .ONESHELL:
 
-CONFIG  := $(CURDIR)/config.yaml
+CONFIG   := $(CURDIR)/config.yaml
 PIPELINE := Sign_pipeline
-PYTHON  := $(CURDIR)/$(PIPELINE)/.venv/bin/python
+PYTHON   := $(CURDIR)/$(PIPELINE)/.venv/bin/python
+
+# Local venv (separate from the pipeline's venv)
+LOCAL_VENV        := $(CURDIR)/.venv
+LOCAL_PYTHON      := $(LOCAL_VENV)/bin/python
+LOCAL_REQUIREMENTS := $(CURDIR)/requirements.txt
 
 # ------------------------------------------------------------------------------
 # Phony targets
 # ------------------------------------------------------------------------------
 
 .PHONY: all dirs models repo setup dataset \
+        local-venv scrape \
         step1 step2 step3 step4 step5 step6 \
         clean help
 
@@ -31,9 +37,6 @@ dirs:
 models: dirs
 	cd ./working/models
 	wget -nc https://github.com/ultralytics/assets/releases/download/v8.4.0/yolo11m.pt -O yolo11m.pt
-	wget -nc https://storage.googleapis.com/mediapipe-models/pose_landmarker/pose_landmarker_heavy/float16/latest/pose_landmarker_heavy.task -O pose_landmarker.task
-	wget -nc https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/latest/hand_landmarker.task -O hand_landmarker.task
-	wget -nc https://storage.googleapis.com/mediapipe-models/face_landmarker/face_landmarker/float16/latest/face_landmarker.task -O face_landmarker.task
 
 # ------------------------------------------------------------------------------
 # 3. Clone repo + uv sync + .env
@@ -67,7 +70,28 @@ $(PIPELINE)/.env: $(PIPELINE)/.venv
 setup: $(PIPELINE)/.venv $(PIPELINE)/.env
 
 # ------------------------------------------------------------------------------
-# 4. Setup: dirs + models + repo + venv + .env
+# 4. Local venv for scripts/
+# ------------------------------------------------------------------------------
+
+$(LOCAL_VENV): $(LOCAL_REQUIREMENTS)
+	@echo "Creating local venv..."
+	python3 -m venv $(LOCAL_VENV)
+	$(LOCAL_VENV)/bin/pip install --quiet --upgrade pip
+	$(LOCAL_VENV)/bin/pip install --quiet -r $(LOCAL_REQUIREMENTS)
+	@echo "Local venv ready."
+
+local-venv: $(LOCAL_VENV)
+
+# ------------------------------------------------------------------------------
+# 5. Scrape — runs before the pipeline
+# ------------------------------------------------------------------------------
+
+scrape: local-venv
+	@echo "[0/6] Scraping Videolibros links..."
+	$(LOCAL_PYTHON) scripts/scrape_videolibros_links.py --config $(CONFIG)
+
+# ------------------------------------------------------------------------------
+# 6. Setup: dirs + models + repo + venv + .env
 # ------------------------------------------------------------------------------
 
 all: dirs models setup
@@ -75,7 +99,7 @@ all: dirs models setup
 	@echo "Setup complete. Run 'make dataset' to generate the dataset."
 
 # ------------------------------------------------------------------------------
-# 5. Dataset pipeline — individual steps
+# 7. Dataset pipeline — individual steps
 # ------------------------------------------------------------------------------
 
 step1: repo
@@ -103,7 +127,7 @@ step6: step5
 	cd $(PIPELINE) && $(PYTHON) pipeline/06_generate_landmarks.py --config $(CONFIG)
 
 # Run all dataset steps
-dataset: all step1 step2 step3 step4 step5 step6
+dataset: all scrape step1 step2 step3 step4 step5 step6
 	@echo ""
 	@echo "Dataset generation complete."
 
@@ -112,4 +136,4 @@ dataset: all step1 step2 step3 step4 step5 step6
 # ------------------------------------------------------------------------------
 
 clean:
-	rm -rf ./working $(PIPELINE)
+	rm -rf ./working $(PIPELINE) $(LOCAL_VENV)

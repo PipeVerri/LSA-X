@@ -11,7 +11,7 @@ def save_videos():
         for id in videos_ids:
             f.write(f"https://www.youtube.com/watch?v={id}" + "\n")
 
-for i in range(106, 0, -1):
+for i in range(106, 0, -1): # TODO: Update the latest videolibro index
     res = requests.get(f'https://www.videolibros.org/video/{i}')
     if res.status_code == 500:  # Reached book limit
         break
