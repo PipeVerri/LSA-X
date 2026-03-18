@@ -1,6 +1,7 @@
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19087120.svg)](https://doi.org/10.5281/zenodo.19087120)
 # LSA-X Dataset Builder
 
-Pipeline for building an Argentine Sign Language (LSA) dataset by downloading, processing, and annotating videos from various YouTube sources.
+Tools and configuration for building an Argentine Sign Language (LSA) dataset by downloading, processing, and annotating videos from various YouTube sources. The processing pipeline is maintained in a separate repository: [Sign-pipeline](https://github.com/PipeVerri/Sign-pipeline).
 
 ---
 
