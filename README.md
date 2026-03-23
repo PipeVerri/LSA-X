@@ -1,7 +1,7 @@
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19087120.svg)](https://doi.org/10.5281/zenodo.19087120)
 # LSA-X Dataset Builder
 
-Tools and configuration for building an Argentine Sign Language (LSA) dataset by downloading, processing, and annotating videos from various YouTube sources. The processing pipeline is maintained in a separate repository: [Sign-pipeline](https://github.com/PipeVerri/Sign-pipeline).
+Tools and configuration for building an Argentine Sign Language (LSA) dataset by downloading, processing, and annotating videos from various YouTube sources.
 
 ---
 
@@ -15,6 +15,16 @@ The dataset comprises **1,553 videos** totaling approximately **507.75 hours** o
 - **Unlabeled** (1,040 videos / 355.96h): Videos that likely contain sign language content but lack audio or any available subtitle track, and therefore have no associated text labels. Frame-level landmark annotations are provided without text.
 
 This resource is intended to support research in sign language recognition, continuous signing translation, and multimodal learning for low-resource languages.
+
+---
+
+## Dataset Format
+
+The structure of the output files — including directory layout, file naming conventions, landmark schema, and annotation fields — is documented in the processing pipeline repository:
+
+**[Sign-pipeline](https://github.com/PipeVerri/Sign-pipeline)**
+
+That repository also contains the code used to run each processing step (audio separation, subtitle parsing, YOLO bounding boxes, MediaPipe landmark extraction). Refer to its documentation before working with the raw output files or integrating the dataset into a training pipeline.
 
 ---
 
@@ -115,3 +125,6 @@ make clean
 ```
 
 Removes the `working/` directory, the cloned pipeline repo, and both virtual environments.
+
+# Attribution
+The idea for this dataset was based off [LSA-T](https://midusi.github.io/LSA-T/)
