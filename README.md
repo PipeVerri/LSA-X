@@ -3,6 +3,8 @@
 
 Tools and configuration for building an Argentine Sign Language (LSA) dataset by downloading, processing, and annotating videos from various YouTube sources.
 
+The dataset can be downloaded on [Zenodo](https://doi.org/10.5281/zenodo.19087120)
+
 ---
 
 ## Dataset Description
@@ -20,11 +22,11 @@ This resource is intended to support research in sign language recognition, cont
 
 ## Dataset Format
 
-The output file structure — including directory layout, file naming conventions, landmark schema, keypoint ordering, and annotation fields — is documented in the processing pipeline repository:
+The structure of the output files — including directory layout, file naming conventions, landmark schema, and annotation fields — is documented in the processing pipeline repository:
 
 **[Sign-pipeline](https://github.com/PipeVerri/Sign-pipeline)**
 
-That repository also contains the implementation of each processing step (audio separation, subtitle parsing, YOLO-based signer detection, MediaPipe landmark extraction). Consult its documentation before working with the raw output files or integrating the dataset into a training pipeline.
+That repository also contains the code used to run each processing step (audio separation, subtitle parsing, YOLO bounding boxes, MediaPipe landmark extraction). Refer to its documentation before working with the raw output files or integrating the dataset into a training pipeline.
 
 ---
 
@@ -34,11 +36,11 @@ All videos were collected from publicly accessible sources. The table below summ
 
 | Source | URL / Origin | Content | Subtitle Method |
 |---|---|---|---|
-| **Canales Asociación Civil** | [YouTube](https://www.youtube.com/c/CanalesAsociaci%C3%B3nCivil/videos) | Educational organization focused on quality education for deaf children in Argentina. Produces LSA content including the Videolibros project in collaboration with UNICEF Argentina. | Generated from audio (ASR) |
-| **Videolibros LSA (public)** | [YouTube](https://www.youtube.com/@VideolibrosLSA/videos) | A free platform featuring children's books and stories read in LSA by deaf signers, with Spanish voiceover. A project of Canales Asociación Civil. | Generated from audio (ASR) |
+| **Canales Asociación Civil** | [YouTube](https://www.youtube.com/c/CanalesAsociaci%C3%B3nCivil/videos) | Educational organization focused on quality education for deaf children in Argentina. Produces LSA content including the Videolibros project. | Generated from audio (ASR) |
+| **Videolibros LSA (public)** | [YouTube](https://www.youtube.com/@VideolibrosLSA/videos) | Children's books and stories read in LSA by deaf signers, with Spanish voiceover. A project of Canales Asociación Civil. | Generated from audio (ASR) |
 | **Videolibros LSA (private)** | [videolibros.org](https://www.videolibros.org) (scraped) | Same content as the public Videolibros channel. These videos were publicly accessible on videolibros.org but unlisted on YouTube, and were collected via web scraping. | Generated from audio (ASR) |
-| **CNSordos** | [YouTube](https://www.youtube.com/@CNSORDOSARGENTINA/videos) | Argentina's first news channel produced by deaf presenters, broadcasting weekly news summaries and thematic content entirely in LSA with Spanish subtitles. Founded during the COVID-19 pandemic. | Human-authored subtitles (downloaded) |
-| **Locufre** | [YouTube](https://www.youtube.com/channel/UCPJr7e9V_07DAID60F0pXVw) | A weekly streaming program created by Matías Cufre, a deaf Argentine broadcaster, and Mariana Ortiz. Described as the first sign language streaming program in Argentina, combining LSA with real-time Spanish interpretation. | YouTube auto-generated captions |
+| **CNSordos** | [YouTube](https://www.youtube.com/@CNSORDOSARGENTINA/videos) | News channel produced by deaf presenters. | Human-authored subtitles (downloaded) |
+| **Locufre** | [YouTube](https://www.youtube.com/channel/UCPJr7e9V_07DAID60F0pXVw) | A weekly streaming program. | YouTube auto-generated captions |
 
 ### Dataset Statistics
 
